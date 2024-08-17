@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("{{ home.image.url }}") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            height: 100vh;
+        }
+        .content {
+            text-align: right;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin: 2rem;
+        }
+        h1 {
+            color: #fff;
+        }
+        .api-message {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            color: #fff;
+        }
+        .buttons {
+            margin-top: 2rem;
+        }
+        .buttons a {
+            display: inline-block;
+            margin: 0 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .buttons a:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to Our Food Centre!</h1>
+        <div class="api-message" id="apiMessage"></div>
+        <div class="buttons">
+            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</body>
+</html>
