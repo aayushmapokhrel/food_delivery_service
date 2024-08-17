@@ -36,11 +36,11 @@ class LoginView(FormView):
         if user is not None:
             login(self.request, user)
             if user.is_superuser and user.is_active:
-                return redirect("restaurants-list")
+                return redirect("restaurants-page")
             elif user.is_driver and user.is_active:
-                return redirect("drivers-list")
+                return redirect("drivers-page")
             elif user.is_customer and user.is_active:
-                return redirect("menusitems-list")
+                return redirect("orders-page")
         return self.form_invalid(form)
 
     def form_invalid(self, form):
@@ -49,6 +49,33 @@ class LoginView(FormView):
 
 class SuccessRegisterView(TemplateView):
     template_name = "registration/success_register.html"
+
+
+class RestaurantDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "restaurant/index.html"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return redirect("login")
+        return super().get(request, *args, **kwargs)
+
+
+class CustomerDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "order/index.html"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_customer:
+            return redirect("login")
+        return super().get(request, *args, **kwargs)
+
+
+class DriverDashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "driver/index.html"
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_driver:
+            return redirect("login")
+        return super().get(request, *args, **kwargs)
 
 
 class LogoutView(DjangoLogoutView):
