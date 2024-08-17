@@ -1,0 +1,77 @@
+{% block content %}
+<div class="container mt-4">
+    <h2 class="page-title mb-4">restaurant List</h2>
+    <div class="d-flex mb-4">
+        <div class="ml-auto">
+            <a href="{% url 'restaurant-create' %}" class="btn btn-primary">Add restaurant</a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ADDRESS</th>
+                <th>IMAGE</th>
+                <th>PHONE NUMBER</th>
+                <th>MENU ITEMS - PRICE</th>
+                
+                <th>IS_ACTIVE</th>
+                <th>OPENING TIME</th>
+                <th>CLOSING TIME</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.name }}</td>
+                <td>{{ restaurant.address }}</td>
+                <td>{% if restaurant.image %}
+                    <img src="{{ restaurant.image.url }}" alt="{{ restaurant.name }} image" style="max-width: 300px; height: auto;">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}</td>
+                <td>{{ restaurant.phone_number }}</td>
+                <td>
+                    {% for item in restaurant.menu_items.all %}
+        {{ item.name }} - ${{ item.price }}{% if not forloop.last %}<BR> {% endif %}
+    {% empty %}
+        No menu items available.
+    {% endfor %}
+                   
+                </td>
+               
+                
+                <td>
+                    {% if restaurant.is_active %}
+                        OPEN
+                    {% else %}
+                        CLOSED
+                    {% endif %}
+                </td>
+                
+                <td>{{ restaurant.opening_time }}</td>
+                <td>{{ restaurant.closing_time }}</td>
+
+
+              
+
+                <td>
+                    <a href="{% url 'restaurant-update' restaurant.id %}" class="btn btn-edit">Edit</a>
+                    <form action="{% url 'restaurant-delete' restaurant.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No restaurants available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

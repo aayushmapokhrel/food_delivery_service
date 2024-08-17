@@ -1,0 +1,51 @@
+{% block content %}
+<div class="container mt-4">
+    <h2 class="page-title mb-4">menuitem List</h2>
+    <div class="d-flex mb-4">
+        <div class="ml-auto">
+            <a href="{% url 'menuitem-create' %}" class="btn btn-primary">Add menuitem</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>IMAGE</th>
+                <th>DESCRIPTION</th>
+                <th>PRICE</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            {% for menuitem in menuitems %}
+            <tr>
+                <td>{{ menuitem.id }}</td>
+                <td>{{ menuitem.name }}</td>
+                <td>{% if menuitem.image %}
+                    <img src="{{ menuitem.image.url }}" alt="{{ menuitem.name }} image" style="max-width: 300px; height: auto;">
+                {% else %}
+                    <p>No image available</p>
+                {% endif %}</td>
+                <td>{{ menuitem.description }}</td>
+                <td>{{ menuitem.price }}</td>
+          
+         
+
+                <td>
+                    <a href="{% url 'menuitem-update' menuitem.id %}" class="btn btn-edit">Edit</a>
+                    <form action="{% url 'menuitem-delete' menuitem.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No menuitems available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
