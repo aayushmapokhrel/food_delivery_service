@@ -48,6 +48,8 @@ urlpatterns = [
          TokenRefreshView.as_view(),
          name="token_refresh"
          ),
+    path('user/', include('user.urls')),
+    path('api/users/', include('user.api.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(

@@ -1,0 +1,17 @@
+{% block content %}
+<h1>Add to User Balance</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add Balance</button>
+</form>
+
+{% if messages %}
+    <div class="alert alert-info mt-3">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

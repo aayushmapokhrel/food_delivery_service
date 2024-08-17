@@ -1,0 +1,30 @@
+{% block content %}
+<h1>User Balances</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Balance</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user_balance in user_balances %}
+            <tr>
+                <td>{{ user_balance.user }}</td>
+                <td>{{ user_balance.balance }}</td>
+                <td>
+                    <a href="{% url 'user-balance-update' user_balance.pk %}" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No balances available.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'user-balance-create' %}" class="btn btn-primary">Create New Balance</a>
+{% endblock %}
