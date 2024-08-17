@@ -57,6 +57,7 @@ urlpatterns = [
     path('api/orders/', include('order.api.urls')),
     path('driver/', include('driver.urls')),
     path('api/drivers/', include('driver.api.urls')),
+    path('payment/', include('payment.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(
