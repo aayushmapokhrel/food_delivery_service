@@ -1,0 +1,27 @@
+<h1>Transaction List</h1>
+<p>Current Balance: {{ balance }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Receiver</th>
+            <th>Status</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.name }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.get_transaction_type_display }}</td>
+                <td>{{ transaction.receiver.username }}</td>
+                <td>{{ transaction.get_status_display }}</td>
+                <td>{{ transaction.remarks }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+<form method="POST">
+    {% csrf_token %}
+    <label for="name">Transaction Name:</label>
+    <input type="text" name="name" id="name" required><br><br>
+
+    <label for="amount">Amount:</label>
+    <input type="number" name="amount" id="amount" step="0.01" required><br><br>
+
+    <label for="transaction_type">Transaction Type:</label>
+    <select name="transaction_type" id="transaction_type" required>
+        <option value="1">Income</option>
+        <option value="2">Expense</option>
+    </select><br><br>
+
+    <label for="payment_method">Payment Method:</label>
+    <select name="payment_method" id="payment_method" required>
+        <option value="1">ESEWA</option>
+        <option value="2">KHALTI</option>
+        <option value="3">ADMIN</option>
+    </select><br><br>
+
+    <label for="receiver_username">Receiver Username:</label>
+    <input type="text" name="receiver_username" id="receiver_username" required><br><br>
+
+    <label for="remarks">Remarks:</label>
+    <textarea name="remarks" id="remarks"></textarea><br><br>
+
+    <button type="submit">Submit Transaction</button>
+</form>
