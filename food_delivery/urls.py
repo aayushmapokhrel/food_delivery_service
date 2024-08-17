@@ -55,6 +55,8 @@ urlpatterns = [
     path('api/restaurants/', include('restaurant.api.urls')),
     path('order/', include('order.urls')),
     path('api/orders/', include('order.api.urls')),
+    path('driver/', include('driver.urls')),
+    path('api/drivers/', include('driver.api.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(

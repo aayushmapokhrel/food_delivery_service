@@ -1,0 +1,48 @@
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="page-title mb-4">delivery List</h2>
+    <div class="d-flex mb-4">
+        <div class="ml-auto">
+            <a href="{% url 'delivery-create' %}" class="btn btn-primary">Add delivery</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ORDER</th>
+                <th>DRIVER</th>
+                <th>DELIVERY ADDREESS</th>
+                <th>DELIVERY STATUS</th>
+                <th>ASSIGNED AT</th>
+                <th>DELIVERED AT</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for delivery in deliverys %}
+            <tr>
+                <td>{{ delivery.id }}</td>
+                <td>{{ delivery.order }}</td>
+                <td>{{ delivery.driver }}</td>
+                <td>{{ delivery.delivery_address }}</td>
+                <td>{{ delivery.get_delivery_status_display }}</td>
+                <td>{{ delivery.assigned_at }}</td>
+                <td>{{ delivery.delivered_at }}</td>
+                  <td>
+                    <a href="{% url 'delivery-update' delivery.id %}" class="btn btn-edit">Edit</a>
+                    <form action="{% url 'delivery-delete' delivery.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No deliverys available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

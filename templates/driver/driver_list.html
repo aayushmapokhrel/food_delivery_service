@@ -1,0 +1,59 @@
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="page-title mb-4">driver List</h2>
+    <div class="d-flex mb-4">
+        <div class="ml-auto">
+            <a href="{% url 'driver-create' %}" class="btn btn-primary">Add driver</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>USER</th>
+                <th>FIRST NAME</th>
+                <th>LAST NAME</th>
+                <th>PHONE NUMBER</th>
+                <th>VEHICLE TYPE</th>
+                <th>VEHICLE NUMBER</th>
+                <th>IS AVAILABLE</th>
+                <th>CURRENT LOCATION</th>
+                <th>RATING</th>
+                <th>CREATED AT</th>
+                <th>UPDATED AT</th>            
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in drivers %}
+            <tr>
+                <td>{{ driver.id }}</td>
+                <td>{{ driver.user }}</td>
+                <td>{{ driver.first_name }}</td>
+                <td>{{ driver.last_name }}</td>
+                <td>{{ driver.phone_number }}</td>
+                <td>{{ driver.vehicle_type }}</td>
+                <td>{{ driver.vehicle_number }}</td>
+                <td>{{ driver.is_available }}</td>
+                <td>{{ driver.current_location }}</td>
+                <td>{{ driver.rating }}</td>
+                <td>{{ driver.created_at }}</td>
+                <td>{{ driver.updated_at }}</td>
+
+                <td>
+                    <a href="{% url 'driver-update' driver.id %}" class="btn btn-edit">Edit</a>
+                    <form action="{% url 'driver-delete' driver.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No drivers available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
