@@ -1,0 +1,90 @@
+{% block content %}
+<div class="container mt-4">
+    <h2 class="page-title mb-4">order List</h2>
+    <div class="d-flex mb-4">
+        <div class="ml-auto">
+            <a href="{% url 'order-create' %}" class="btn btn-primary">Add Order</a>
+        </div>
+        <div class="ml-auto">
+            <a href="{% url 'orderitem-create' %}" class="btn btn-primary">Add ORDERITEM</a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Restaurant</th>
+                <th>full_name</th>
+                <th>phone_number By</th>
+                <th>country</th>
+                <th>town_or_city</th>
+                <th>street_address1</th>
+                <th>street_address2</th>
+                <th>date</th>
+                <th>order_items</th>
+                <th>PRICE</th>
+                <th>QUANTITY</th>
+                <th>SUB TOTAL</th>
+                <th>TOTAL PRICE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.restaurant }}</td>
+                <td>{{ order.full_name }}</td>
+                <td>{{ order.phone_number }}</td>
+                <td>{{ order.country }}</td>
+                <td>{{ order.town_or_city }}</td>
+                <td>{{ order.street_address1 }}</td>
+                <td>{{ order.street_address2 }}</td>
+                <td>{{ order.date }}</td>
+                <td>
+                    {% for item in order.order_items.all %}
+        {{ item.menu_item.name }}
+    <br>
+   
+    {% endfor %}
+                </td>
+                <td>
+                    {% for item in order.order_items.all %}
+      ${{ item.menu_item.price }} 
+       <br>
+    {% endfor %}
+                </td>
+                <td>
+                    {% for item in order.order_items.all %}
+        
+        {{ item.quantity }} <br>
+
+    {% endfor %}
+                </td>
+                
+                <td>
+                    {% for item in order.order_items.all %}
+                        Rs.{{ item.get_total_price }} <br>
+                    {% endfor %}
+                </td>
+                <td>
+                    Rs.{{ order.get_total_order_price }}
+                </td>
+
+                <td>
+                    <a href="{% url 'order-update' order.id %}" class="btn btn-edit">Edit</a>
+                    <form action="{% url 'order-delete' order.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No orders available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

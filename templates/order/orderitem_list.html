@@ -1,0 +1,66 @@
+{% block content %}
+<div class="container mt-4">
+    <h2 class="page-title mb-4">order List</h2>
+    <div class="d-flex mb-4">
+        <div class="ml-auto">
+            <a href="{% url 'orderitem-create' %}" class="btn btn-primary">Add OrderItem</a>
+            <a href="{% url 'orders-list' %}" class="btn btn-primary">SEE ORDER LIST</a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Restaurant</th>
+                <th>full_name</th>
+                <th>phone_number By</th>
+                <th>country</th>
+                <th>town_or_city</th>
+                <th>street_address1</th>
+                <th>street_address2</th>
+                <th>date</th>
+                <th>order_items</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for orderitem in ordersitems %}
+            <tr>
+                <td>{{ orderitem.id }}</td>
+                <td>{{ orderitem.order.restaurant }}</td>
+                <td>{{ orderitem.order.full_name }}</td>
+                <td>{{ orderitem.order.phone_number }}</td>
+                <td>{{ orderitem.order.country }}</td>
+                <td>{{ orderitem.order.town_or_city }}</td>
+                <td>{{ orderitem.order.street_address1 }}</td>
+                <td>{{ orderitem.order.street_address2 }}</td>
+                <td>{{ orderitem.order.date }}</td>
+                <td>{{ orderitem.menu_item }}</td>
+                <td>{{ orderitem.quantity }}</td>
+                <td>{{ orderitem.menu_item.price }}</td>
+                
+                
+
+
+              
+
+                <td>
+                    <a href="{% url 'orderitem-update' orderitem.id %}" class="btn btn-edit">Edit</a>
+                    <form action="{% url 'orderitem-delete' orderitem.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="no-data">No orders available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

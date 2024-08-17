@@ -53,6 +53,8 @@ urlpatterns = [
     path('api/users/', include('user.api.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('api/restaurants/', include('restaurant.api.urls')),
+    path('order/', include('order.urls')),
+    path('api/orders/', include('order.api.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(
