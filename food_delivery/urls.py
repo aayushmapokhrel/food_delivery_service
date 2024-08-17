@@ -51,6 +51,8 @@ urlpatterns = [
          ),
     path('user/', include('user.urls')),
     path('api/users/', include('user.api.urls')),
+    path('restaurant/', include('restaurant.urls')),
+    path('api/restaurants/', include('restaurant.api.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(
